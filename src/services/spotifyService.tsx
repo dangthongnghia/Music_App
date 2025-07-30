@@ -6,7 +6,7 @@ export const fetchHome_MP3 = async () => {
     // console.log(response)
     return response.data || []
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 }
 
@@ -18,7 +18,7 @@ export const fetchArtists_MP3 = async (name: string) => {
     // console.log(response)
     return response.data || []
   } catch (error) {
-    console.error('Error fetching artist songs:', error)
+    // console.error('Error fetching artist songs:', error)
   }
 }
 
@@ -28,7 +28,7 @@ export const fetchTop100_MP3 = async () => {
 
     return response.data || []
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 }
 
@@ -38,7 +38,7 @@ export const fetchAlbums_MP3 = async () => {
 
     return response.data || []
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 }
 export const fetchArtistSongs_MP3 = async (name: string) => {
@@ -48,7 +48,7 @@ export const fetchArtistSongs_MP3 = async (name: string) => {
     })
     return response.data || []
   } catch (error) {
-    console.error('Error fetching artist songs:', error)
+    // console.error('Error fetching artist songs:', error)
   }
 }
 export const fetchNewRelease = async () => {
@@ -57,7 +57,7 @@ export const fetchNewRelease = async () => {
 
     return response.data || []
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 }
 export const apisearch = async (keyword: string) => {
@@ -67,7 +67,7 @@ export const apisearch = async (keyword: string) => {
     })
     return response.data
   } catch (error) {
-    console.error('Error searching:', error)
+    // console.error('Error searching:', error)
   }
 }
 
@@ -81,7 +81,7 @@ export const fetchDetailPlaylist = async (id: string) => {
 
     return response.data
   } catch (error) {
-    console.error('Error fetching playlist:', error)
+    // console.error('Error fetching playlist:', error)
     throw error
   }
 }

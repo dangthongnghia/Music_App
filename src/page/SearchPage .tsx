@@ -27,10 +27,10 @@ export const SearchPage = () => {
         setLoading(true)
 
         const results = await apisearch(keyword)
-        console.log(results)
+        // console.log(results)
         setSearchResults(results)
       } catch (err) {
-        console.error('Search error:', err)
+        // console.error('Search error:', err)
       } finally {
         setLoading(false)
       }

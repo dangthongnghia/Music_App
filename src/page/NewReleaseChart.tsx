@@ -16,7 +16,7 @@ export function NewReleaseChart() {
         const newRl = await fetchNewRelease()
         setNewReleaseData(newRl)
       } catch (error) {
-        console.error(error)
+        // console.error(error)
       } finally {
         setLoading(false)
       }

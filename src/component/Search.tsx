@@ -69,7 +69,7 @@ export const Search = () => {
       setIsLoading(true)
       const response = await apisearch(keyword)
 
-      console.log('Search response:', response)
+      // console.log('Search response:', response)
       if (response?.data) {
         const suggestions: SearchSuggestion[] = []
 
@@ -116,7 +116,7 @@ export const Search = () => {
         setShowSuggestions(suggestions.length > 0)
       }
     } catch (error) {
-      console.error('Error fetching suggestions:', error)
+      // console.error('Error fetching suggestions:', error)
       setSuggestions([])
       setShowSuggestions(false)
     } finally {

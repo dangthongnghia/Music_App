@@ -24,7 +24,7 @@ export default function InforSong() {
         setSongInfo(inforSong.data)
         setLyricsSong(lyricSong)
       } catch (err) {
-        console.error('Error loading artist:', err)
+        // console.error('Error loading artist:', err)
       } finally {
         setLoading(false)
       }

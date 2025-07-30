@@ -19,7 +19,7 @@ export default function Top100() {
         const top100 = await fetchTop100_MP3()
         setAlbums(top100)
       } catch (error) {
-        console.error('Error fetching top 100 songs:', error)
+        // console.error('Error fetching top 100 songs:', error)
       } finally {
         setLoading(false)
       }

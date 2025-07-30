@@ -80,7 +80,7 @@ const AudioPlayer = () => {
   // Xử lý previous track
   const handlePrev = () => {
     // TODO: Implement previous track functionality
-    console.log('Previous track')
+    // console.log('Previous track')
   }
 
   // Xử lý next track

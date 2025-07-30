@@ -28,12 +28,12 @@ export default function ArtistsId() {
         setLoading(true)
         const artistData = await fetchArtists_MP3(name)
 
-        console.log('Full Artist Data:', artistData)
+        // console.log('Full Artist Data:', artistData)
 
         // Set artist info
         setArtist(artistData.data)
         const songSection = artistData.data.sections.find((section: any) => section.sectionType === 'song')
-        console.log('Song section found:', songSection.items)
+        // console.log('Song section found:', songSection.items)
         // Extract và set songs từ sections
         if (songSection.items) {
           const songs = songSection.items.map((item: any) => ({
@@ -46,15 +46,15 @@ export default function ArtistsId() {
             album: item.album
           }))
 
-          console.log('Extracted songs:', songs)
+          // console.log('Extracted songs:', songs)
           setArtistSongs(songs) // Set local state
           setPlaylist(songs) // Set vào context
         } else {
-          console.log('No songs found in sections[0]')
-          console.log('Available sections:', songSection())
+          // console.log('No songs found in sections[0]')
+          // console.log('Available sections:', songSection())
         }
       } catch (err) {
-        console.error('Error loading artist:', err)
+        // console.error('Error loading artist:', err)
       } finally {
         setLoading(false)
       }
@@ -93,7 +93,7 @@ export default function ArtistsId() {
       }
       playTrackById(encodeId)
     } catch (error) {
-      console.error('Error playing song:', error)
+      // console.error('Error playing song:', error)
     }
   }
   const handlePauseTrack = async (encodeId: string) => {
@@ -101,7 +101,7 @@ export default function ArtistsId() {
       if (currentTrack?.encodeId === encodeId && isPlaying) {
         togglePlayPause()
       } else {
-        console.log(`Pausing song with ID: ${encodeId}`)
+        // console.log(`Pausing song with ID: ${encodeId}`)
       }
     } catch (error) {
       console.error('Error pausing track:', error)
@@ -115,7 +115,7 @@ export default function ArtistsId() {
         handlePlaySongById(encodeId)
       }
     } catch (error) {
-      console.error('Error handling play/pause track:', error)
+      // console.error('Error handling play/pause track:', error)
     }
   }
 

@@ -113,7 +113,7 @@ export default function Signup() {
         navigate('/') // Chuyển về trang chủ
       }, 2000)
     } catch (err) {
-      console.error('Signup error:', err)
+      // console.error('Signup error:', err)
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
     } finally {
       setLoading(false)
@@ -142,7 +142,7 @@ export default function Signup() {
         navigate('/') // Chuyển về trang chủ
       }, 1500)
     } catch (error) {
-      console.error('Google signup error:', error)
+      // console.error('Google signup error:', error)
       setError('Đăng ký Google thất bại')
     }
   }

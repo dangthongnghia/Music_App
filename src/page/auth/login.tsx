@@ -33,7 +33,7 @@ export default function Login() {
 
 
   if (!googleClientId) {
-    console.error('VITE_GOOGLE_CLIENT_ID is not defined in environment variables')
+    // console.error('VITE_GOOGLE_CLIENT_ID is not defined in environment variables')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +103,7 @@ export default function Login() {
         setError('Email hoặc mật khẩu không đúng.')
       }
     } catch (err) {
-      console.error('Login error:', err)
+      // console.error('Login error:', err)
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
     } finally {
       setLoading(false)
@@ -131,7 +131,7 @@ export default function Login() {
         window.location.href = '/'
       })
     } catch (error) {
-      console.error('Google login error:', error)
+      // console.error('Google login error:', error)
       setError('Đăng nhập Google thất bại')
     }
   }

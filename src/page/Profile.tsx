@@ -39,7 +39,7 @@ export default function Profile() {
           }
         }
       } catch (error) {
-        console.error('Error loading profile:', error)
+        // console.error('Error loading profile:', error)
       } finally {
       }
     }
@@ -69,7 +69,7 @@ export default function Profile() {
       setProfileUser(updatedUser)
       setIsEditing(false)
     } catch (error) {
-      console.error('Error updating profile:', error)
+    //   console.error('Error updating profile:', error)
     }
   }
 

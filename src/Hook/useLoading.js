@@ -60,7 +60,7 @@ export const useApiLoading = () => {
   const simulateApiCall = async (duration = 2000) => {
     setIsLoading(true);
     setError(null);
-    console.log('Lỗi ')
+    // console.log('Lỗi ')
 
     try {
       // Simulate API call

@@ -78,7 +78,7 @@ export const Now_Playing: React.FC = () => {
     try {
       await playTrackById(encodeId)
     } catch (error) {
-      console.error('Error playing track:', error)
+      // console.error('Error playing track:', error)
     }
   }
 

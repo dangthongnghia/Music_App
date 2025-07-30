@@ -108,7 +108,7 @@ const Lyrics: React.FC = () => {
         setError('Không tìm thấy lời bài hát')
       }
     } catch (error) {
-      console.error('Error fetching lyrics:', error)
+      // console.error('Error fetching lyrics:', error)
       setError('Lỗi khi tải lời bài hát')
     } finally {
       setIsLoading(false)

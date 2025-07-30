@@ -10,7 +10,7 @@ export const getSongInfo_MP3 = async (encodeId: string) => {
 
     return response.data || []
   } catch (error) {
-    console.error('Error fetching song info:', error)
+    // console.error('Error fetching song info:', error)
   }
 }
 export const getSongLyrics = async (encodeId: string) => {
@@ -23,7 +23,7 @@ export const getSongLyrics = async (encodeId: string) => {
 
     return response.data
   } catch (error) {
-    console.error('Error fetching song lyrics:', error)
+    // console.error('Error fetching song lyrics:', error)
     throw error
   }
 }

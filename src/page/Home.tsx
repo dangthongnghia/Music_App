@@ -11,8 +11,7 @@ import Icon from '../component/Icon'
 import { Top100Section } from './Home/Top100Section'
 
 function Home() {
-  // const [isLoadingPage, setIsLoadingPage] = useState(true)
-  // const [dataLoaded, setDataLoaded] = useState(false)
+
 
   const [isLiked, setIsLiked] = useState(false)
 
