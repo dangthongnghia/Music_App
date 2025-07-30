@@ -1,0 +1,32 @@
+import type { Track } from '../types/spotify'
+
+export const parseTrack = (data: any): Track => ({
+  encodeId: data.encodeId,
+  title: data.title,
+  alias: data.alias,
+  isOffical: data.isOffical,
+  username: data.username,
+  artistsNames: data.artistsNames,
+  artists: data.artists,
+  isWorldWide: data.isWorldWide,
+  thumbnailM: data.thumbnailM,
+  link: data.link,
+  thumbnail: data.thumbnail,
+  duration: data.duration,
+  zingChoice: data.zingChoice,
+  isPrivate: data.isPrivate,
+  preRelease: data.preRelease,
+  releaseDate: data.releaseDate,
+  genreIds: data.genreIds,
+  album: data.album,
+  isIndie: data.isIndie,
+  streamingStatus: data.streamingStatus,
+  allowAudioAds: data.allowAudioAds,
+  hasLyric: data.hasLyric,
+  rakingStatus: data.rakingStatus,
+  score: data.score,
+  totalTopZing: data.totalTopZing,
+  distributor: data.distributor || '',
+  indicators: data.indicators || [],
+  textType: data.textType || ''
+})

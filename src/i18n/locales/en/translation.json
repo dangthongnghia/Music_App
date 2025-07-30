@@ -1,0 +1,85 @@
+{
+  "search": {
+    "placeholder": "Search something...",
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "newReleases": "New Releases",
+    "newFeed": "News Feed",
+    "shufflePlay": "Shuffle Play"
+  },
+  "buttons": {
+    "home": "Home",
+    "settings": "Settings",
+    "notification": "Notifications",
+    "account": "Account"
+  },
+  "theme": {
+    "light": "Switch to dark mode",
+    "dark": "Switch to light mode"
+  },
+  "navbar": {
+    "Libary": "Library",
+    "Browse": "Browse",
+    "Songs": "Songs",
+    "Albums": "Albums",
+    "Artists": "Artists",
+    "Radio": "Radio",
+    "MyMusic": "My Music",
+    "Playlists": "Playlists",
+    "RecentlyPlayed": "Recently Played",
+    "FavoriteSongs": "Favorites Songs",
+    "LocalFiles": "Local Files"
+  },
+  "browse": {
+    "seeAll": "See All",
+    "newReleases": "New Releases",
+    "newFeed": "News Feed",
+    "shufflePlay": "Shuffle Play",
+    "NewReleases": "New Releases",
+    "song": "Songs",
+    "artist": "Artists",
+    "duration": "Duration",
+    "recentlyPlayed": "Recently Played",
+    "popular": "Popular",
+    "topCharts": "Top Charts",
+    "genres": "Genres",
+    "Albums": "Popular Albums and Singles",
+    "moods": "Moods",
+    "podcasts": "Podcasts",
+    "radioStations": "Radio Stations",
+    "Popularartists": "Popular Artists"
+  },
+  "footer": {
+    "Company": "Company",
+    "About": "About",
+    "Jobs": "Jobs",
+    "For The Record": "For The Record",
+    "Communities": "Communities",
+    "For Artists": "For Artists",
+    "Developers": "Developers",
+    "Advertising": "Advertising",
+    "Investors": "Investors",
+    "Vendors": "Vendors",
+    "Useful links": "Useful links",
+    "Support": "Support",
+    "Free Mobile Apps": " Free Mobile Apps",
+
+    "Legal": "Legal",
+    "Safety & Privacy Center": "Safety & Privacy Center",
+    "Privacy Policy": "Privacy Policy",
+    "Cookies": "Cookies",
+    "About Ads": "About Ads",
+    "Accessibility": "Accessibility"
+  },
+  "artist": {
+    "topTracks": "Top Tracks",
+    "popularAlbums": "Popular Albums",
+    "similarArtists": "Similar Artists",
+    "aboutArtist": "About Artist",
+    "seeAll": "See All",
+    "Followers": "Followers",
+    "Genres": "Genres",
+    "Biography": "Biography"
+  }
+}

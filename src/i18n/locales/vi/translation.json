@@ -1,0 +1,85 @@
+{
+  "search": {
+    "placeholder": "Tìm kiếm...",
+    "loading": "Đang tải..."
+  },
+  "navigation": {
+    "newReleases": "Mới Phát Hành",
+    "newFeed": "Bảng Tin",
+    "shufflePlay": "Phát Ngẫu Nhiên"
+  },
+  "buttons": {
+    "home": "Trang Chủ",
+    "settings": "Cài Đặt",
+    "notification": "Thông Báo",
+    "account": "Tài Khoản"
+  },
+  "theme": {
+    "light": "Chuyển sang chế độ tối",
+    "dark": "Chuyển sang chế độ sáng"
+  },
+  "navbar": {
+    "Libary": "Thư Viện",
+    "Browse": "Trình duyệt",
+    "Songs": "Bài Hát",
+    "Albums": "Album",
+    "Artists": "Nghệ Sĩ",
+    "Radio": "Radio",
+    "MyMusic": "Nhạc Của Tôi",
+    "Playlists": "Danh Sách Phát",
+    "RecentlyPlayed": "Đã Phát Gần Đây",
+    "FavoriteSongs": "Bài Hát Yêu Thích",
+    "LocalFiles": "Tệp Tin Địa Phương"
+  },
+  "browse": {
+    "seeAll": "Xem Tất Cả",
+    "newReleases": "Mới Phát Hành",
+    "newFeed": "Bảng Tin",
+    "shufflePlay": "Phát Ngẫu Nhiên",
+    "NewReleases": "Mới Phát Hành",
+    "song": "Bài Hát",
+    "artist": "Nghệ Sĩ",
+    "duration": "Thời Gian",
+    "recentlyPlayed": "Đã Phát Gần Đây",
+    "popular": "Phổ Biến",
+    "topCharts": "Bảng Xếp Hạng Hàng Đầu",
+    "genres": "Thể Loại",
+    "moods": "Tâm Trạng",
+    "Albums": "Albums và Đĩa Đơn Phổ Biến",
+    "podcasts": "Podcast",
+    "radioStations": "Đài Phát Thanh",
+    "Popularartists": "Nghệ Sĩ Phổ Biến"
+  },
+  "footer": {
+    "Company": "Công ty",
+    "About": "Giới thiệu",
+    "Jobs": "Việc làm",
+    "For the Record": "For the Record",
+    "Communities": "Cộng đồng",
+    "For Artists": "Dành cho các Nghệ sĩ",
+    "Developers": "Nhà phát triển ",
+    "Advertising": "Quảng cáo",
+    "Investors": "Nhà đầu tư",
+    "Vendors": "Nhà cung cấp",
+    "Useful Links": "Liên kết hữu ích",
+    "Support": "Hỗ trợ",
+    "Free Mobile Apps": "Ứng dụng di động miễn phí",
+
+    "Legal": "Pháp Lý",
+    "Safety & Privacy Center": "Trung tâm an toàn & Quyền riêng tư",
+    "Privacy Policy": "Chính Sách Quyền Riêng Tư",
+    "Cookies": "Cookies",
+    "About Ads": "Giới thiệu và quảng cáo ",
+    "Accessibility": "Hỗ trợ và tiếp cận"
+  },
+  "artist": {
+    "topTracks": "Bài hát hàng đầu",
+    "albums": "Album",
+    "similarArtists": "Nghệ sĩ tương tự",
+    "biography": "Tiểu sử",
+    "relatedArtists": "Nghệ sĩ liên quan",
+    "popularSongs": "Bài hát phổ biến",
+    "seeAllAlbums": "Xem tất cả album",
+    "seeAllArtists": "Xem tất cả nghệ sĩ"
+  }
+}
