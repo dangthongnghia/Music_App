@@ -52,7 +52,7 @@ export function Top100Section() {
             <SwiperSlide key={playlist.encodeId}>
               <Link
                 to={`/playlist/${playlist.encodeId}`}
-                className=' group block bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-4 hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-500 border border-white/10 hover:border-blue-400/50 hover:underline'
+                className=' group block bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-4 hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-500 border border-white/10 hover:border-blue-400/50 '
               >
                 <div className='relative mb-4'>
                   {/* Rank Badge */}
@@ -71,7 +71,7 @@ export function Top100Section() {
                 </div>
 
                 <div className='space-y-2'>
-                  <h3 className='font-bold text-white line-clamp-2 group-hover:text-blue-300 transition-colors leading-tight'>
+                  <h3 className='font-bold text-white line-clamp-2 group-hover:text-blue-300 transition-colors leading-tight hover:underline'>
                     {playlist.title}
                   </h3>
                   <p className='text-xs text-gray-500'>{Math.floor(Math.random() * 1000) + 100}K lượt nghe</p>

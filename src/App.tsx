@@ -13,7 +13,7 @@ import Login from './page/auth/login'
 import Signup from './page/auth/signup'
 import { useEffect } from 'react'
 import { Layout } from './component/Layout'
-
+import Video from './page/Video'
 // import { Loading } from './component/Loading'
 import { NewReleaseChart } from './page/NewReleaseChart'
 import Top100 from './page/Top100'
@@ -42,6 +42,7 @@ function AppContent() {
             <Route path='/infosong' element={<InfoSong />} />
             <Route path='/profile/:id' element={<Profile />} />
             <Route path='/search' element={<SearchPage />} />
+            <Route path='/video' element={<Video />} />
           </Routes>
         </Layout>
       )}

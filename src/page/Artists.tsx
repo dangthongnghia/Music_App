@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 
-
 interface PremiumStatus {
   [key: string]: boolean
 }
@@ -69,31 +68,30 @@ export default function ArtistsId() {
   }, [name])
 
   useEffect(() => {
-      const checkAllPremium = async () => {
-        if (!artist?.sections[0].items) return
-  
-        const checksPremium = await Promise.all(
-          artist.sections[0].items.map(async (track) => {
-            try {
-              const result = await getSongPLay(track.encodeId)
-              return { encodeId: track.encodeId, isPremium: result.err === -1110 || result.err === -1150 }
-            } catch (error) {
-              return { encodeId: track.encodeId, isPremium: false }
-            }
-          })
-        )
-  
-        const newPremiumStatus: PremiumStatus = {}
-        checksPremium.forEach(({ encodeId, isPremium }) => {
-          newPremiumStatus[encodeId] = isPremium
-        })
-  
-        setPremiumStatus(newPremiumStatus)
-      }
-  
-      checkAllPremium()
-    }, [artist?.sections[0].items])
+    const checkAllPremium = async () => {
+      if (!artist?.sections[0].items) return
 
+      const checksPremium = await Promise.all(
+        artist.sections[0].items.map(async (track) => {
+          try {
+            const result = await getSongPLay(track.encodeId)
+            return { encodeId: track.encodeId, isPremium: result.err === -1110 || result.err === -1150 }
+          } catch (error) {
+            return { encodeId: track.encodeId, isPremium: false }
+          }
+        })
+      )
+
+      const newPremiumStatus: PremiumStatus = {}
+      checksPremium.forEach(({ encodeId, isPremium }) => {
+        newPremiumStatus[encodeId] = isPremium
+      })
+
+      setPremiumStatus(newPremiumStatus)
+    }
+
+    checkAllPremium()
+  }, [artist?.sections[0].items])
 
   const handlePlayPlaylist = () => {
     if (artistSongs.length > 0) {
@@ -198,7 +196,6 @@ export default function ArtistsId() {
       </div>
     )
   }
-
 
   if (!artist) {
     return (
@@ -409,20 +406,19 @@ export default function ArtistsId() {
                     </div>
                     <div className='flex-1 min-w-0'>
                       <div className='flex items-center gap-4'>
-
-                      <h3 className='font-medium text-white line-clamp-1 group-hover:text-green-400 transition-colors'>
-                        {song.title}
-                      </h3>
-                      <div className='flex items-center justify-between text-xs text-gray-400'>
-                        {premiumStatus[song.encodeId] === true ? (
-                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
-                            Premium
-                          </span>
-                        ) : (
-                          premiumStatus[song.encodeId] === false && <span className=''></span>
-                        )}
-                      </div>
+                        <h3 className='font-medium text-white line-clamp-1 group-hover:text-green-400 transition-colors'>
+                          {song.title}
+                        </h3>
+                        <div className='flex items-center justify-between text-xs text-gray-400'>
+                          {premiumStatus[song.encodeId] === true ? (
+                            <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
+                              Premium
+                            </span>
+                          ) : (
+                            premiumStatus[song.encodeId] === false && <span className=''></span>
+                          )}
                         </div>
+                      </div>
                       <p className='text-sm text-gray-400 line-clamp-1 group-hover:text-gray-300 transition-colors'>
                         {Array.isArray(song.artists)
                           ? song.artists.map((artist: any) => artist.name).join(', ')

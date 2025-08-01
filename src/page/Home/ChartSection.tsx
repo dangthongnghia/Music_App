@@ -42,7 +42,6 @@ export function ChartSection() {
           }
         })
       )
-      
 
       const newPremiumStatus: PremiumStatus = {}
       checksPremium.forEach(({ encodeId, isPremium }) => {

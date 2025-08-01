@@ -8,7 +8,7 @@ import Now_Playing from './Now_Playing'
 
 const AudioPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0)
-  const [volume, setVolume] = useState(0.5)
+  const [volume, setVolume] = useState(1)
   const [previousVolume, setPreviousVolume] = useState(0.5) // Lưu volume trước khi mute
   const [isRepeat, setIsRepeat] = useState(false)
   const [isLiked, setIsLiked] = useState(false)

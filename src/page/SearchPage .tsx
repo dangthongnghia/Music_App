@@ -27,7 +27,7 @@ export const SearchPage = () => {
         setLoading(true)
 
         const results = await apisearch(keyword)
-        // console.log(results)
+        console.log(results)
         setSearchResults(results)
       } catch (err) {
         // console.error('Search error:', err)
@@ -39,17 +39,16 @@ export const SearchPage = () => {
     loadSearchResults()
   }, [keyword])
 
-  // const formatDuration = (ms: number) => {
-  //   if (!ms || isNaN(ms)) return '0:00'
-
-  //   // Tính phút và giây
-  //   const minutes = Math.floor(ms / 60)
-  //   const seconds = ms % 60
-
-  //   // Nếu số giây nhỏ hơn 10, thêm số 0 vào trước
-  //   return `${minutes}:${seconds.toString().padStart(2, '0')}`
-  // }
-
+  const formatFollowers = (count: number) => {
+    if (!count) return '0'
+    if (count >= 1000000) {
+      return `${(count / 1000000).toFixed(1)}M`
+    }
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}K`
+    }
+    return count.toString()
+  }
   const linkTopresult = (encodeId: string, alias: string, objectType: string) => {
     if (objectType === 'playlist') {
       return `/playlist/${encodeId}`
@@ -140,11 +139,13 @@ export const SearchPage = () => {
               <div className='lg:flex gap-6 '>
                 {/* Chuyển thành slider */}
                 {searchResults?.data.artists.slice(0, 5).map((artits: any) => (
-                  <div className=' lg:justify-center items-center flex lg:flex-col gap-5 my-5 ' key={artits.id}>
-                    <img src={artits.thumbnailM} alt='' className='w-20 h-20 lg:w-50 lg:h-50 rounded-full ' />
-                    <h1>{artits.name}</h1>
-                    <p className='hidden lg:block'>{artits.totalFollow} Quan tâm</p>
-                  </div>
+                  <Link to={`/artist?name=${artits.alias}`} className='w-full' key={artits.id}>
+                    <div className=' lg:justify-center items-center flex lg:flex-col gap-5 my-5 ' key={artits.id}>
+                      <img src={artits.thumbnailM} alt='' className='w-20 h-20 lg:w-50 lg:h-50 rounded-full ' />
+                      <h1>{artits.name}</h1>
+                      <p className='hidden lg:block'>{formatFollowers(artits.totalFollow)} Quan tâm</p>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -156,16 +157,18 @@ export const SearchPage = () => {
             <div className='w-full mt-5 flex gap-10 justify-between'>
               {searchResults?.data.videos.slice(0, 3).map((video: any) => (
                 <div key={video.encodeId}>
-                  <div className='w-full'>
-                    <img src={video.thumbnailM} alt='' className='w-[95%]' />
-                  </div>
-                  <div className='flex mt-3'>
-                    <img src={video.artist.thumbnail} alt='' className='w-10 h-10 rounded-full mr-3' />
-                    <div>
-                      <h1 className=' text-mb font-black'>{video.title}</h1>
-                      <h1 className='text-sm text-gray-500'>{video.artistsNames}</h1>
+                  <Link to={`/video?id=${video.encodeId}`}>
+                    <div className='w-full'>
+                      <img src={video.thumbnailM} alt='' className='w-[95%]' />
                     </div>
-                  </div>
+                    <div className='flex mt-3'>
+                      <img src={video.artist.thumbnail} alt='' className='w-10 h-10 rounded-full mr-3' />
+                      <div>
+                        <h1 className=' text-mb font-black'>{video.title}</h1>
+                        <h1 className='text-sm text-gray-500'>{video.artistsNames}</h1>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
               ))}
             </div>
