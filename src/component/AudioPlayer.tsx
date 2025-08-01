@@ -19,7 +19,7 @@ const AudioPlayer = () => {
   // Refs
   const queueRef = useRef<HTMLDivElement>(null)
   const volumeRef = useRef<HTMLDivElement>(null)
-  const { currentTrack, isPlaying, progress, audioRef, nextTrack } = usePlayer()
+  const { currentTrack, isPlaying, progress, audioRef, nextTrack, prevTrack } = usePlayer()
 
   // Handle click outside to close queue
   useEffect(() => {
@@ -79,11 +79,10 @@ const AudioPlayer = () => {
 
   // Xử lý previous track
   const handlePrev = () => {
-    // TODO: Implement previous track functionality
-    // console.log('Previous track')
+    prevTrack()
   }
 
-  // Xử lý next track
+
 
   // Xử lý repeat mode
   const handleRepeat = () => {

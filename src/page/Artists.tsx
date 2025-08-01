@@ -32,7 +32,7 @@ export default function ArtistsId() {
         setLoading(true)
         const artistData = await fetchArtists_MP3(name)
 
-        // console.log('Full Artist Data:', artistData)
+        console.log('Full Artist Data:', artistData)
 
         // Set artist info
         setArtist(artistData.data)

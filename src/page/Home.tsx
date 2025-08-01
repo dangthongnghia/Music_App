@@ -17,7 +17,7 @@ function Home() {
     <>
       <div className='text-white w-full min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900'>
         {/* Hero Banner Section - Fixed Banner */}
-        <section className='relative h-[70vh] sm:h-[70vh] md:h-[60vh] overflow-hidden'>
+        <section className='relative h-[70vh] sm:h-[70vh] md:h-[65vh] overflow-hidden'>
           <div className='relative h-full'>
             {/* Static Background */}
             <div
