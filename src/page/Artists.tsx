@@ -3,11 +3,16 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { fetchArtists_MP3 } from '../services/spotifyService'
 import { usePlayer } from '../contexts/PlayerContext'
 import Icon from '../component/Icon'
+import { getSongPLay } from '../services/song'
 import type { Artist, Track } from '../types/spotify'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Autoplay } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 
+
+interface PremiumStatus {
+  [key: string]: boolean
+}
 export default function ArtistsId() {
   const [searchParams] = useSearchParams()
   const name = searchParams.get('name')
@@ -16,7 +21,7 @@ export default function ArtistsId() {
 
   const [artistSongs, setArtistSongs] = useState<Track[]>([])
   const [isCurrentArtistPlaylist, setIsCurrentArtistPlaylist] = useState(false)
-
+  const [premiumStatus, setPremiumStatus] = useState<Record<string, boolean>>({})
   const [isShown, setIsShown] = useState<string | null>(null)
   const [isFollowing, setIsFollowing] = useState(false)
   const { playTrackById, setPlaylist, currentTrack, isPlaying, togglePlayPause } = usePlayer()
@@ -62,6 +67,33 @@ export default function ArtistsId() {
 
     loadArtistData()
   }, [name])
+
+  useEffect(() => {
+      const checkAllPremium = async () => {
+        if (!artist?.sections[0].items) return
+  
+        const checksPremium = await Promise.all(
+          artist.sections[0].items.map(async (track) => {
+            try {
+              const result = await getSongPLay(track.encodeId)
+              return { encodeId: track.encodeId, isPremium: result.err === -1110 || result.err === -1150 }
+            } catch (error) {
+              return { encodeId: track.encodeId, isPremium: false }
+            }
+          })
+        )
+  
+        const newPremiumStatus: PremiumStatus = {}
+        checksPremium.forEach(({ encodeId, isPremium }) => {
+          newPremiumStatus[encodeId] = isPremium
+        })
+  
+        setPremiumStatus(newPremiumStatus)
+      }
+  
+      checkAllPremium()
+    }, [artist?.sections[0].items])
+
 
   const handlePlayPlaylist = () => {
     if (artistSongs.length > 0) {
@@ -167,23 +199,6 @@ export default function ArtistsId() {
     )
   }
 
-  //   if (error) {
-  //     return (
-  //       <div className='flex items-center justify-center h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900'>
-  //         <div className='text-center'>
-  //           <Icon name='alert' className='text-red-500 text-6xl mx-auto mb-4' />
-  //           <div className='text-white text-2xl mb-4'>Lỗi tải dữ liệu</div>
-  //           <p className='text-gray-400'>{error}</p>
-  //           <button
-  //             onClick={() => window.location.reload()}
-  //             className='mt-4 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg transition-colors'
-  //           >
-  //             Thử lại
-  //           </button>
-  //         </div>
-  //       </div>
-  //     )
-  //   }
 
   if (!artist) {
     return (
@@ -393,9 +408,21 @@ export default function ArtistsId() {
                       <div className='absolute inset-0 bg-black/20 rounded-lg group-hover/img:bg-black/0 transition-all duration-300'></div>
                     </div>
                     <div className='flex-1 min-w-0'>
+                      <div className='flex items-center gap-4'>
+
                       <h3 className='font-medium text-white line-clamp-1 group-hover:text-green-400 transition-colors'>
                         {song.title}
                       </h3>
+                      <div className='flex items-center justify-between text-xs text-gray-400'>
+                        {premiumStatus[song.encodeId] === true ? (
+                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
+                            Premium
+                          </span>
+                        ) : (
+                          premiumStatus[song.encodeId] === false && <span className=''></span>
+                        )}
+                      </div>
+                        </div>
                       <p className='text-sm text-gray-400 line-clamp-1 group-hover:text-gray-300 transition-colors'>
                         {Array.isArray(song.artists)
                           ? song.artists.map((artist: any) => artist.name).join(', ')

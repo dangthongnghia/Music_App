@@ -2,11 +2,18 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { fetchHome_MP3 } from '../../services/spotifyService'
 import { usePlayer } from '../../contexts/PlayerContext'
+import { getSongPLay } from '../../services/song'
 import type { ZingMP3HomeResponse } from '../../types/spotify'
 import Icon from '../../component/Icon'
+
+interface PremiumStatus {
+  [key: string]: boolean
+}
+
 export function ChartSection() {
   const [homeData, setHomeData] = useState<ZingMP3HomeResponse | null>(null)
   const [hoveredItemChart, setHoveredItemChart] = useState<string | null>(null)
+  const [premiumStatus, setPremiumStatus] = useState<Record<string, boolean>>({})
   const { playTrackById, setPlaylist } = usePlayer()
   useEffect(() => {
     const loadHome = async () => {
@@ -21,6 +28,32 @@ export function ChartSection() {
     }
     loadHome()
   }, [])
+  useEffect(() => {
+    const checkAllPremium = async () => {
+      if (!getNewReleaseChartSection()?.items) return
+
+      const checksPremium = await Promise.all(
+        getNewReleaseChartSection()?.items.map(async (track: any) => {
+          try {
+            const result = await getSongPLay(track.encodeId)
+            return { encodeId: track.encodeId, isPremium: result.err === -1110 || result.err === -1150 }
+          } catch (error) {
+            return { encodeId: track.encodeId, isPremium: false }
+          }
+        })
+      )
+      
+
+      const newPremiumStatus: PremiumStatus = {}
+      checksPremium.forEach(({ encodeId, isPremium }) => {
+        newPremiumStatus[encodeId] = isPremium
+      })
+
+      setPremiumStatus(newPremiumStatus)
+    }
+
+    checkAllPremium()
+  }, [homeData])
   const getNewReleaseChartSection = () => {
     return homeData?.data?.items?.find((item) => item.sectionType === 'newReleaseChart')
   }
@@ -68,14 +101,25 @@ export function ChartSection() {
                   <span className='text-xs md:text-sm font-medium'>HOT</span>
                 </div>
               </div>
-              <Link
-                to={`/infosong?id=${getNewReleaseChartSection()?.items?.[0]?.encodeId}`}
-                className='block mb-1 hover:underline'
-              >
-                <h3 className='text-xl md:text-2xl font-bold text-white mb-1'>
-                  {getNewReleaseChartSection()?.items?.[0]?.title || 'Untitled Song'}
-                </h3>
-              </Link>
+              <div className='flex  gap-4 items-center'>
+                <Link
+                  to={`/infosong?id=${getNewReleaseChartSection()?.items?.[0]?.encodeId}`}
+                  className='block mb-1 hover:underline'
+                >
+                  <h3 className='text-xl md:text-2xl font-bold text-white mb-1'>
+                    {getNewReleaseChartSection()?.items?.[0]?.title || 'Untitled Song'}
+                  </h3>
+                </Link>
+                <div className='flex items-center justify-between text-xs text-gray-400'>
+                  {premiumStatus[getNewReleaseChartSection()?.items?.[0]?.encodeId] === true ? (
+                    <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>Premium</span>
+                  ) : premiumStatus[getNewReleaseChartSection()?.items?.[0]?.encodeId] === false ? (
+                    <span className=''></span>
+                  ) : (
+                    <span className=''></span>
+                  )}
+                </div>
+              </div>
               <div className='text-xs sm:text-sm text-gray-400 line-clamp-1'>
                 {Array.isArray(getNewReleaseChartSection()?.items?.[0]?.artists)
                   ? getNewReleaseChartSection()?.items?.[0]?.artists?.map((artist: any, i: number) => (
@@ -142,11 +186,26 @@ export function ChartSection() {
 
                   {/* Song Info */}
                   <div className='flex-1 min-w-0'>
-                    <Link to={`/infosong?id=${song.encodeId}`} className='block mb-1 hover:underline'>
-                      <h4 className='font-bold text-white line-clamp-1 group-hover:text-orange-300 transition-colors'>
-                        {song.title}
-                      </h4>
-                    </Link>
+                    <div className='flex gap-3 items-center'>
+                      <Link to={`/infosong?id=${song.encodeId}`} className='block mb-1 hover:underline'>
+                        <h4 className='font-bold text-white line-clamp-1 group-hover:text-orange-300 transition-colors'>
+                          {song.title}
+                        </h4>
+                      </Link>
+                      <div className='flex items-center justify-between text-xs text-gray-400'>
+                        {premiumStatus[song.encodeId] === true ? (
+                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
+                            Premium
+                          </span>
+                        ) : premiumStatus[song.encodeId] === false ? (
+                          <span className=''></span>
+                        ) : (
+                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
+                            Premium
+                          </span>
+                        )}
+                      </div>
+                    </div>
                     <div className='text-xs sm:text-sm text-gray-400 line-clamp-1'>
                       {Array.isArray(song.artists)
                         ? song.artists.map((artist: any, i: number) => (

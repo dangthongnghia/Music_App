@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { fetchHome_MP3 } from '../../services/spotifyService'
+import { getSongPLay } from '../../services/song'
 import { usePlayer } from '../../contexts/PlayerContext'
 import type { ZingMP3HomeResponse } from '../../types/spotify'
 import Icon from '../../component/Icon'
+
+interface PremiumStatus {
+  [key: string]: boolean
+}
 export function NewReleaseSection() {
   const [homeData, setHomeData] = useState<ZingMP3HomeResponse | null>(null)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const [premiumStatus, setPremiumStatus] = useState<Record<string, boolean>>({})
   const { playTrackById, setPlaylist } = usePlayer()
   useEffect(() => {
     const loadHome = async () => {
@@ -15,12 +21,39 @@ export function NewReleaseSection() {
 
         setHomeData(homepage)
         // setDataLoaded(true)
+        console.log('Home data loaded:', homepage)
       } catch (error) {
         // setDataLoaded(true)
       }
     }
     loadHome()
   }, [])
+  // Lấy dữ liệu từ song nếu không có data thì hiển thị chữ premium
+  useEffect(() => {
+    const checkAllPremium = async () => {
+      if (!getNewReleaseSection()?.items) return
+
+      const checksPremium = await Promise.all(
+        getNewReleaseSection()?.items.all.map(async (track: any) => {
+          try {
+            const result = await getSongPLay(track.encodeId)
+            return { encodeId: track.encodeId, isPremium: result.err === -1110 || result.err === -1150 }
+          } catch (error) {
+            return { encodeId: track.encodeId, isPremium: false }
+          }
+        })
+      )
+
+      const newPremiumStatus: PremiumStatus = {}
+      checksPremium.forEach(({ encodeId, isPremium }) => {
+        newPremiumStatus[encodeId] = isPremium
+      })
+
+      setPremiumStatus(newPremiumStatus)
+    }
+
+    checkAllPremium()
+  }, [homeData])
   const getNewReleaseSection = () => {
     return homeData?.data?.items?.find((item) => item.sectionType === 'new-release')
   }
@@ -114,11 +147,24 @@ export function NewReleaseSection() {
                         ))}
                       </div>
                     </div>
-                    {song.releaseDate && (
-                      <p className='text-xs text-gray-500 hidden md:block'>
-                        {new Date(song.releaseDate * 1000).toLocaleDateString('vi-VN')}
-                      </p>
-                    )}
+                    <div className='text-xs text-gray-500 flex justify-between'>
+                      {song.releaseDate && (
+                        <p className='text-xs text-gray-500 hidden md:block'>
+                          {new Date(song.releaseDate * 1000).toLocaleDateString('vi-VN')}
+                        </p>
+                      )}
+                      <div className='flex items-center justify-between text-xs text-gray-400'>
+                        {premiumStatus[song.encodeId] === true ? (
+                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
+                            Premium
+                          </span>
+                        ) : premiumStatus[song.encodeId] === false ? (
+                          <span></span>
+                        ) : (
+                          <span className=''></span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               )

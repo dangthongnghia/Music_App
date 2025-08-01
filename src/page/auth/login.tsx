@@ -27,10 +27,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
-
-
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
-
 
   if (!googleClientId) {
     // console.error('VITE_GOOGLE_CLIENT_ID is not defined in environment variables')
@@ -95,10 +92,13 @@ export default function Login() {
         localStorage.setItem('user', JSON.stringify(loginUserData))
         localStorage.setItem('token', loginUserData.token)
 
-        setTimeout(() => {
-          navigate('/')
-          
-        }, 1000, loading)
+        setTimeout(
+          () => {
+            navigate('/')
+          },
+          1000,
+          loading
+        )
       } else {
         setError('Email hoặc mật khẩu không đúng.')
       }
@@ -109,7 +109,6 @@ export default function Login() {
       setLoading(false)
     }
   }
-  
 
   const handleGoogleSuccess = (credentialResponse: any) => {
     try {
@@ -141,8 +140,8 @@ export default function Login() {
   }
 
   return (
-    <GoogleOAuthProvider clientId={googleClientId }>
-            <div className='absolute w-full flex justify-center items-center h-screen bg-gray-900'>
+    <GoogleOAuthProvider clientId={googleClientId}>
+      <div className='absolute w-full flex justify-center items-center h-screen bg-gray-900'>
         <div className='bg-gray-800 px-8 pb-10 rounded-lg shadow-lg text-white max-w-md w-full mx-4'>
           <div className='w-15 h-15 flex gap-4 items-center cursor-pointer mb-6' onClick={() => navigate(-1)}>
             <Icon name='arrow-left' className='w-6 h-6' />
@@ -233,11 +232,8 @@ export default function Login() {
                   text='continue_with'
                   shape='rectangular'
                 />
-                
               ) : (
-                <div className='text-red-400 text-sm'>
-                  Google Login không khả dụng
-                </div>
+                <div className='text-red-400 text-sm'>Google Login không khả dụng</div>
               )}
             </div>
           </div>

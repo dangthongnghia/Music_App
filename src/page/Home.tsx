@@ -11,8 +11,6 @@ import Icon from '../component/Icon'
 import { Top100Section } from './Home/Top100Section'
 
 function Home() {
-
-
   const [isLiked, setIsLiked] = useState(false)
 
   return (
@@ -44,31 +42,8 @@ function Home() {
             <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60' />
 
             {/* Main content */}
-            <div className='absolute md:inset-0 flex items-center mt-5 md:mt-0 md:justify-center md:flex-row flex-col gap-8 px-4 md:px-8'>
+            <div className='absolute inset-0 flex items-center mt-5 md:mt-0 md:justify-center md:flex-row flex-col gap-8 px-4 md:px-8'>
               <div className='max-w-7xl mx-auto px-8 md:flex items-center md:gap-12 w-full'>
-                {/* Hero image */}
-                <div className='relative group'>
-                  <div className='relative overflow-hidden rounded-3xl shadow-2xl'>
-                    <div className='w-80 h-80 bg-gradient-to-br from-green-500 via-blue-500 to-purple-600 md:flex items-center justify-center relative overflow-hidden hidden '>
-                      <div className='absolute inset-0 opacity-20'>
-                        <div className='absolute top-4 left-4 w-8 h-8 border-2 border-white rounded-full'></div>
-                        <div className='absolute top-12 right-8 w-4 h-4 bg-white rounded-full'></div>
-                        <div className='absolute bottom-16 left-8 w-6 h-6 border border-white rounded-full'></div>
-                        <div className='absolute bottom-8 right-4 w-12 h-1 bg-white rounded'></div>
-                        <div className='absolute bottom-12 right-4 w-8 h-1 bg-white rounded'></div>
-                        <div className='absolute bottom-16 right-4 w-10 h-1 bg-white rounded'></div>
-                      </div>
-
-                      <div className='relative z-10'>
-                        <Icon name='music' className='text-white text-9xl drop-shadow-2xl' />
-                      </div>
-
-                      <div className='absolute inset-0 bg-gradient-to-t from-green-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
-                    </div>
-                  </div>
-                  {/* Reflection Effect */}
-                  <div className='absolute -bottom-20 left-0 w-full h-20 bg-gradient-to-t from-white/5 to-transparent blur-xl' />
-                </div>
                 {/* Content */}
                 <div className='flex-1 space-y-8  '>
                   <div className='space-y-4'>
@@ -94,25 +69,29 @@ function Home() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className='flex items-center gap-6 max-md-justify-between text-xs'>
+                  <div className='flex items-center gap-6 max-md-justify-between text-xs '>
                     <Link
                       to='/newreleasechart'
-                      className='bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/40 text-white font-semibold px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105'
+                      className='bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/40 text-white font-semibold px-3 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 '
                     >
-                      <Icon name='music' className='text-lg' />
+                      <i className='w-5'>
+                        <Icon name='music' className='text-lg' />
+                      </i>
                       <span>Top Trending</span>
                     </Link>
 
                     <Link
                       to='/top100'
-                      className='bg-purple-500/20 backdrop-blur-sm border border-purple-400/30 hover:bg-purple-500/30 hover:border-purple-400/50 text-purple-200 font-semibold px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105'
+                      className='bg-purple-500/20 backdrop-blur-sm border border-purple-400/30 hover:bg-purple-500/30 hover:border-purple-400/50 text-purple-200 font-semibold px-3 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105'
                     >
-                      <Icon name='star' className='text-lg' />
+                      <i className='w-5'>
+                        <Icon name='star' className='text-lg' />
+                      </i>
                       <span>Top 100</span>
                     </Link>
 
                     <button
-                      className={`text-gray-400 hover:text-white hover:scale-110 transition-all duration-300 w-10 h-10 hidden md:block ${
+                      className={`text-gray-400 hover:text-white hover:scale-110 transition-all duration-300 w-10 h-10 hidden lg:block ${
                         isLiked ? 'text-green-500' : ''
                       }`}
                       onClick={() => setIsLiked(!isLiked)}

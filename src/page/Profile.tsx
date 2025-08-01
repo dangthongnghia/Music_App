@@ -69,7 +69,7 @@ export default function Profile() {
       setProfileUser(updatedUser)
       setIsEditing(false)
     } catch (error) {
-    //   console.error('Error updating profile:', error)
+      //   console.error('Error updating profile:', error)
     }
   }
 

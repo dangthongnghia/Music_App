@@ -759,7 +759,7 @@ function Icon(props: IconProps) {
               y2='0.188'
             >
               {' '}
-              <stop offset='0' stop-color='#ff4c0d'></stop> <stop offset='1'></stop>{' '}
+              <stop offset='0' stopColor='#ff4c0d'></stop> <stop offset='1'></stop>{' '}
             </linearGradient>{' '}
           </defs>{' '}
           <g id='fire'>

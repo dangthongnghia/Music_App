@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useParams, useSearchParams, Link } from 'react-router-dom'
 import { fetchDetailPlaylist } from '../services/spotifyService'
+import { getSongPLay } from '../services/song'
 import type { DetailplaylistData } from '../types/spotify'
 import Icon from '../component/Icon'
 import { usePlayer } from '../contexts/PlayerContext'
 
+interface PremiumStatus {
+  [key: string]: boolean
+}
 export default function PlaylistDetail() {
   const { id } = useParams<{ id: any }>()
   const [searchParams] = useSearchParams()
   const playlistId = id || searchParams.get('id')
+  const [premiumStatus, setPremiumStatus] = useState<Record<string, boolean>>({})
   const [playlistData, setPlaylistData] = useState<DetailplaylistData | null>()
   const [trackplaylist, setTrackPlaylist] = useState<DetailplaylistData | null>()
-  // const [loading, setLoading] = useState<boolean>()
   const [isShown, setIsShown] = useState<string | null>(null)
   const [isLiked, setIsLiked] = useState(false)
 
@@ -54,6 +58,32 @@ export default function PlaylistDetail() {
       document.body.style.background = 'black'
     }
   }, [playlistId])
+
+  useEffect(() => {
+    const checkAllPremium = async () => {
+      if (!trackplaylist?.data.song.items) return
+
+      const checksPremium = await Promise.all(
+        trackplaylist.data.song.items.map(async (track) => {
+          try {
+            const result = await getSongPLay(track.encodeId)
+            return { encodeId: track.encodeId, isPremium: result.err === -1110 || result.err === -1150 }
+          } catch (error) {
+            return { encodeId: track.encodeId, isPremium: false }
+          }
+        })
+      )
+
+      const newPremiumStatus: PremiumStatus = {}
+      checksPremium.forEach(({ encodeId, isPremium }) => {
+        newPremiumStatus[encodeId] = isPremium
+      })
+
+      setPremiumStatus(newPremiumStatus)
+    }
+
+    checkAllPremium()
+  }, [trackplaylist])
   const handlePlayPlaylist = () => {
     if (playlistId) {
       if (isThisPlaylistPlaying && isPlaying) {
@@ -103,21 +133,6 @@ export default function PlaylistDetail() {
     }
     return `${minutes} phút`
   }
-
-  // const handleTogglePlay = () => {
-  //   if (typeof togglePlay === 'function') {
-  //     togglePlay()
-  //   } else {
-  //     console.warn('togglePlay is not available in PlayerContext')
-  //   }
-  // }
-  // if (loading) {
-  //   return (
-  //     <div className='flex items-center justify-center h-screen bg-black'>
-  //       <div className='animate-spin rounded-full h-32 w-32 border-b-2 border-green-500'></div>
-  //     </div>
-  //   )
-  // }
 
   return (
     <div className='text-white w-full min-h-screen pb-24'>
@@ -285,14 +300,25 @@ export default function PlaylistDetail() {
                     className='hidden md:block w-12 h-12 rounded-lg object-cover'
                   />
                   <div className='flex-1 min-w-0 w-full'>
-                    <Link to={`/infosong?id=${track.encodeId}`} className='hover:underline'>
-                      <h3
-                        key={track.encodeId}
-                        className={`font-medium text-xs  line-clamp-1 hover:text-green-400 transition-colors w-full `}
-                      >
-                        {track.title}
-                      </h3>
-                    </Link>
+                    <div className='flex gap-5 items-center'>
+                      <Link to={`/infosong?id=${track.encodeId}`} className='hover:underline'>
+                        <h3
+                          key={track.encodeId}
+                          className={`font-medium text-xs  line-clamp-1 hover:text-green-400 transition-colors w-full `}
+                        >
+                          {track.title}
+                        </h3>
+                      </Link>
+                      <div className='flex items-center justify-between text-xs text-gray-400'>
+                        {premiumStatus[track.encodeId] === true ? (
+                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
+                            Premium
+                          </span>
+                        ) : (
+                          premiumStatus[track.encodeId] === false && <span className=''></span>
+                        )}
+                      </div>
+                    </div>
                     <p className='text-sm text-gray-400 line-clamp-1'>
                       {track.artists?.map((artist: any, i: number) => (
                         <span key={artist.id} className='hover:underline'>
