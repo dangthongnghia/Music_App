@@ -41,6 +41,15 @@
   scrollbar-width: none; /* Firefox */
 }
 
+/* Css thanh scrollbar */
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #16a34a transparent;
+  scrollbar-gutter: stable;
+}
+:hover .scrollbar {
+  scrollbar-color: #22c55e transparent;
+}
 /* Ẩn thanh cuộn cho Chrome, Safari và Opera */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

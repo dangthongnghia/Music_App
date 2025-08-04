@@ -7,6 +7,7 @@ interface User {
   avatar?: string
   bio: string | null
   loginType?: 'email' | 'google'
+  phone?: string | undefined
 }
 
 interface AuthContextType {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Icon from '../../component/Icon'
+import Icon from '../../components/common/Icon_1'
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'
 import { jwtDecode } from 'jwt-decode'
 

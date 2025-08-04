@@ -4,7 +4,7 @@ import { fetchHome_MP3 } from '../../services/spotifyService'
 import { getSongPLay } from '../../services/song'
 import { usePlayer } from '../../contexts/PlayerContext'
 import type { ZingMP3HomeResponse } from '../../types/spotify'
-import Icon from '../../component/Icon'
+import Icon from '../../components/common/Icon_1'
 
 interface PremiumStatus {
   [key: string]: boolean
@@ -14,16 +14,18 @@ export function NewReleaseSection() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [premiumStatus, setPremiumStatus] = useState<Record<string, boolean>>({})
   const { playTrackById, setPlaylist } = usePlayer()
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     const loadHome = async () => {
       try {
         const homepage = await fetchHome_MP3()
-
         setHomeData(homepage)
-        // setDataLoaded(true)
+        setLoading(true)
         console.log('Home data loaded:', homepage)
       } catch (error) {
-        // setDataLoaded(true)
+        setLoading(true)
+      } finally {
+        setLoading(false)
       }
     }
     loadHome()
@@ -65,6 +67,54 @@ export function NewReleaseSection() {
       }
       await playTrackById(encodeId)
     } catch (error) {}
+  }
+  if (loading) {
+    return (
+      <div className='max-w-7xl mx-auto'>
+        {/* Header Skeleton */}
+        <div className='flex items-center justify-between mb-8'>
+          <div>
+            <div className='h-10 bg-gray-700 rounded-lg w-56 mb-2 animate-pulse'></div>
+            <div className='h-5 bg-gray-800 rounded w-72 animate-pulse'></div>
+          </div>
+          <div className='h-10 bg-gray-700 rounded-lg w-32 animate-pulse'></div>
+        </div>
+
+        {/* Featured Song Skeleton */}
+        <div className='bg-gray-800/30 rounded-3xl p-8 mb-8 animate-pulse'>
+          <div className='flex items-center gap-8'>
+            <div className='w-32 h-32 bg-gray-700 rounded-2xl flex-shrink-0'></div>
+            <div className='flex-1 space-y-4'>
+              <div className='flex items-center gap-3'>
+                <div className='bg-gray-700 rounded-full w-20 h-6'></div>
+                <div className='bg-gray-700 rounded w-16 h-6'></div>
+              </div>
+              <div className='bg-gray-700 rounded w-3/4 h-8'></div>
+              <div className='bg-gray-700 rounded w-1/2 h-5'></div>
+              <div className='bg-gray-700 rounded w-2/3 h-4'></div>
+            </div>
+            <div className='w-16 h-16 bg-gray-700 rounded-full flex-shrink-0'></div>
+          </div>
+        </div>
+
+        {/* Songs Grid Skeleton */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {Array.from({ length: 9 }).map((_, index) => (
+            <div key={index} className='bg-gray-800/30 rounded-2xl p-4 animate-pulse'>
+              <div className='flex items-center gap-4'>
+                <div className='w-16 h-16 bg-gray-700 rounded-xl flex-shrink-0'></div>
+                <div className='flex-1 space-y-2'>
+                  <div className='bg-gray-700 rounded w-full h-5'></div>
+                  <div className='bg-gray-700 rounded w-3/4 h-4'></div>
+                  <div className='bg-gray-700 rounded w-1/2 h-3'></div>
+                </div>
+                <div className='w-10 h-10 bg-gray-700 rounded-full flex-shrink-0'></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
   return (
     <div className='max-w-7xl mx-auto'>
@@ -121,10 +171,10 @@ export function NewReleaseSection() {
                       }`}
                     >
                       <button
-                        className='bg-green-500/90 backdrop-blur-sm text-black p-3 rounded-full hover:bg-green-400 hover:scale-110 transition-all duration-300 shadow-xl w-15 h-15 hidden lg:block'
+                        className='bg-green-500/90 backdrop-blur-sm text-black p-3 rounded-full hover:bg-green-400 hover:scale-110 transition-all duration-300 shadow-xl hidden lg:block'
                         onClick={() => handlePlaySongById(song.encodeId, getNewReleaseSection()?.items)}
                       >
-                        <Icon name='play' className='text-lg ml-0.5' />
+                        <Icon name='play' size={30} className='text-white' />
                       </button>
                     </div>
                   </div>

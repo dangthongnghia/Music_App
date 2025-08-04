@@ -845,7 +845,7 @@ export interface Artist {
   biography: string
   sortBiography?: string
   national: string
-  sections: { items: Track[]; total: number }[]
+  sections: { items: Track[]; total: number; sectionType: string }[]
 }
 
 // Album interface

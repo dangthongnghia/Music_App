@@ -4,7 +4,7 @@ import { fetchHome_MP3 } from '../../services/spotifyService'
 import { usePlayer } from '../../contexts/PlayerContext'
 import { getSongPLay } from '../../services/song'
 import type { ZingMP3HomeResponse } from '../../types/spotify'
-import Icon from '../../component/Icon'
+import Icon from '../../components/common/Icon_1'
 
 interface PremiumStatus {
   [key: string]: boolean
@@ -15,19 +15,26 @@ export function ChartSection() {
   const [hoveredItemChart, setHoveredItemChart] = useState<string | null>(null)
   const [premiumStatus, setPremiumStatus] = useState<Record<string, boolean>>({})
   const { playTrackById, setPlaylist } = usePlayer()
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
   useEffect(() => {
     const loadHome = async () => {
       try {
+        setLoading(true)
+        setError(false)
         const homepage = await fetchHome_MP3()
-
         setHomeData(homepage)
-        // setDataLoaded(true)
       } catch (error) {
-        // setDataLoaded(true)
+        console.error('Error loading chart data:', error)
+        setError(true)
+      } finally {
+        setLoading(false)
       }
     }
     loadHome()
   }, [])
+
   useEffect(() => {
     const checkAllPremium = async () => {
       if (!getNewReleaseChartSection()?.items) return
@@ -51,8 +58,11 @@ export function ChartSection() {
       setPremiumStatus(newPremiumStatus)
     }
 
-    checkAllPremium()
-  }, [homeData])
+    if (homeData && !loading) {
+      checkAllPremium()
+    }
+  }, [homeData, loading])
+
   const getNewReleaseChartSection = () => {
     return homeData?.data?.items?.find((item) => item.sectionType === 'newReleaseChart')
   }
@@ -63,8 +73,89 @@ export function ChartSection() {
         setPlaylist(playlistData)
       }
       await playTrackById(encodeId)
-    } catch (error) {}
+    } catch (error) {
+      console.error('Error playing song:', error)
+    }
   }
+
+  // Loading Skeleton
+  if (loading) {
+    return (
+      <div className='max-w-7xl mx-auto'>
+        <div className='flex items-center justify-between mb-8'>
+          <div>
+            <div className='h-10 bg-gray-700 rounded-lg w-48 mb-2 animate-pulse'></div>
+            <div className='h-5 bg-gray-800 rounded w-64 animate-pulse'></div>
+          </div>
+        </div>
+
+        {/* Featured Chart Item Skeleton */}
+        <div className='bg-gray-800/30 rounded-3xl p-8 mb-8 animate-pulse'>
+          <div className='flex items-center gap-8'>
+            <div className='w-20 h-20 md:h-24 md:w-24 bg-gray-700 rounded-2xl'></div>
+            <div className='flex-1'>
+              <div className='flex items-center gap-3 mb-2'>
+                <div className='bg-gray-700 rounded-full w-24 h-6'></div>
+                <div className='bg-gray-700 rounded w-12 h-6'></div>
+              </div>
+              <div className='bg-gray-700 rounded w-64 h-8 mb-2'></div>
+              <div className='bg-gray-700 rounded w-48 h-5'></div>
+            </div>
+            <div className='w-16 h-16 bg-gray-700 rounded-full hidden md:block'></div>
+          </div>
+        </div>
+
+        {/* Chart List Skeleton */}
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div key={index} className='bg-gray-800/30 rounded-2xl p-4 animate-pulse'>
+              <div className='flex items-center gap-4'>
+                <div className='w-8 h-8 bg-gray-700 rounded'></div>
+                <div className='w-16 h-16 bg-gray-700 rounded-xl'></div>
+                <div className='flex-1'>
+                  <div className='bg-gray-700 rounded w-full h-5 mb-2'></div>
+                  <div className='bg-gray-700 rounded w-3/4 h-4'></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  // Error State
+  if (error) {
+    return (
+      <div className='max-w-7xl mx-auto text-center py-16'>
+        <div className='bg-gray-800/30 rounded-3xl p-8'>
+          <Icon name='alert' size={64} className='mx-auto mb-4 text-red-400' />
+          <h3 className='text-xl font-bold text-white mb-2'>Không thể tải bảng xếp hạng</h3>
+          <p className='text-gray-400 mb-4'>Đã xảy ra lỗi khi tải dữ liệu. Vui lòng thử lại sau.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className='bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition-colors'
+          >
+            Thử lại
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // No Data State
+  if (!getNewReleaseChartSection()?.items?.length) {
+    return (
+      <div className='max-w-7xl mx-auto text-center py-16'>
+        <div className='bg-gray-800/30 rounded-3xl p-8'>
+          <Icon name='music' size={64} className='mx-auto mb-4 text-gray-500' />
+          <h3 className='text-xl font-bold text-white mb-2'>Chưa có dữ liệu bảng xếp hạng</h3>
+          <p className='text-gray-400'>Hãy quay lại sau để xem những bài hát hot nhất!</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className='max-w-7xl mx-auto'>
       <div className='flex items-center justify-between mb-8'>
@@ -84,9 +175,12 @@ export function ChartSection() {
               <img
                 src={getNewReleaseChartSection()?.items?.[0]?.thumbnailM || '/img/default-music.jpg'}
                 alt={getNewReleaseChartSection()?.items?.[0]?.title || 'Song'}
-                className='w-20 h-20 md:h-24 md:w-24 object-cover rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300 '
+                className='w-20 h-20 md:h-24 md:w-24 object-cover rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300'
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement
+                  target.src = '/img/default-music.jpg'
+                }}
               />
-
               <div className='absolute inset-0 bg-black/20 rounded-2xl group-hover:bg-transparent transition-all duration-300' />
             </div>
 
@@ -100,7 +194,7 @@ export function ChartSection() {
                   <span className='text-xs md:text-sm font-medium'>HOT</span>
                 </div>
               </div>
-              <div className='flex  gap-4 items-center'>
+              <div className='flex gap-4 items-center'>
                 <Link
                   to={`/infosong?id=${getNewReleaseChartSection()?.items?.[0]?.encodeId}`}
                   className='block mb-1 hover:underline'
@@ -110,12 +204,8 @@ export function ChartSection() {
                   </h3>
                 </Link>
                 <div className='flex items-center justify-between text-xs text-gray-400'>
-                  {premiumStatus[getNewReleaseChartSection()?.items?.[0]?.encodeId] === true ? (
+                  {premiumStatus[getNewReleaseChartSection()?.items?.[0]?.encodeId] === true && (
                     <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>Premium</span>
-                  ) : premiumStatus[getNewReleaseChartSection()?.items?.[0]?.encodeId] === false ? (
-                    <span className=''></span>
-                  ) : (
-                    <span className=''></span>
                   )}
                 </div>
               </div>
@@ -135,9 +225,9 @@ export function ChartSection() {
 
             <button
               onClick={() => handlePlaySongById(getNewReleaseChartSection()?.items?.[0]?.encodeId)}
-              className='bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white p-4 rounded-full hover:scale-110 transition-all duration-300 shadow-xl w-15 h-15 hidden md:block'
+              className='bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white p-4 rounded-full hover:scale-110 transition-all duration-300 shadow-xl hidden md:block'
             >
-              <Icon name='play' className='text-xl ml-0.5' />
+              <Icon name='play' size={30} className='text-white' />
             </button>
           </div>
         </div>
@@ -164,23 +254,29 @@ export function ChartSection() {
                   </div>
 
                   {/* Thumbnail */}
-                  <img
-                    src={song.thumbnail || song.thumbnailM}
-                    alt={song.title}
-                    className='w-16 h-16 object-cover rounded-xl shadow-lg'
-                  />
-                  {/* Play Button */}
-                  <div
-                    className={`absolute left-18 flex items-center justify-center transition-all duration-300 ${
-                      hoveredItemChart === song.encodeId ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  >
-                    <button
-                      className='   hover:scale-110 transition-all duration-300  w-10 h-10'
-                      onClick={() => handlePlaySongById(song.encodeId, getNewReleaseChartSection()?.items)}
+                  <div className='relative'>
+                    <img
+                      src={song.thumbnail || song.thumbnailM}
+                      alt={song.title}
+                      className='w-16 h-16 object-cover rounded-xl shadow-lg'
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement
+                        target.src = '/img/default-music.jpg'
+                      }}
+                    />
+                    {/* Play Button */}
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl transition-all duration-300 ${
+                        hoveredItemChart === song.encodeId ? 'opacity-100' : 'opacity-0'
+                      }`}
                     >
-                      <Icon name='play' className='text-lg ml-0.5' />
-                    </button>
+                      <button
+                        className='hover:scale-110 transition-all duration-300'
+                        onClick={() => handlePlaySongById(song.encodeId, getNewReleaseChartSection()?.items)}
+                      >
+                        <Icon name='play' size={24} className='text-white' />
+                      </button>
+                    </div>
                   </div>
 
                   {/* Song Info */}
@@ -192,13 +288,7 @@ export function ChartSection() {
                         </h4>
                       </Link>
                       <div className='flex items-center justify-between text-xs text-gray-400'>
-                        {premiumStatus[song.encodeId] === true ? (
-                          <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
-                            Premium
-                          </span>
-                        ) : premiumStatus[song.encodeId] === false ? (
-                          <span className=''></span>
-                        ) : (
+                        {premiumStatus[song.encodeId] === true && (
                           <span className='text-yellow-400 text-xs bg-yellow-500/20 px-2 py-1 rounded-full'>
                             Premium
                           </span>

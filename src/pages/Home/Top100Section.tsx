@@ -3,24 +3,74 @@ import { useState, useEffect } from 'react'
 import { fetchHome_MP3 } from '../../services/spotifyService'
 import type { ZingMP3HomeResponse } from '../../types/spotify'
 import { Swiper, SwiperSlide } from 'swiper/react'
+
 import { Autoplay, Navigation } from 'swiper/modules'
 export function Top100Section() {
   const [homeData, setHomeData] = useState<ZingMP3HomeResponse | null>(null)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     const loadHome = async () => {
       try {
+        setLoading(true)
         const homepage = await fetchHome_MP3()
-
         setHomeData(homepage)
-        // setDataLoaded(true)
       } catch (error) {
-        // setDataLoaded(true)
+      } finally {
+        setLoading(false)
       }
     }
     loadHome()
   }, [])
   const getTop100Section = () => {
     return homeData?.data?.items?.find((item) => item.sectionType === 'playlist' && item.title?.includes('Top 100'))
+  }
+
+  if (loading) {
+    return (
+      <div className='max-w-7xl mx-auto'>
+        {/* Header Skeleton */}
+        <div className='flex items-center justify-between mb-8'>
+          <div>
+            <div className='h-10 bg-gray-700 rounded-lg w-48 mb-2 animate-pulse'></div>
+            <div className='h-5 bg-gray-800 rounded w-64 animate-pulse'></div>
+          </div>
+          <div className='h-10 bg-gray-700 rounded-lg w-32 animate-pulse'></div>
+        </div>
+
+        {/* Top 100 Categories Skeleton */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div key={index} className='bg-gray-800/30 rounded-3xl p-6 animate-pulse'>
+              <div className='space-y-3'>
+                {/* Category Header */}
+                <div className='text-center space-y-3'>
+                  <div className='w-24 h-24 bg-gray-700 rounded-2xl mx-auto'></div>
+                  <div className='bg-gray-700 rounded w-3/4 h-6 mx-auto'></div>
+                  <div className='bg-gray-700 rounded w-1/2 h-4 mx-auto'></div>
+                </div>
+
+                {/* Top Songs List */}
+                <div className='space-y-3'>
+                  {Array.from({ length: 3 }).map((_, songIndex) => (
+                    <div key={songIndex} className='flex items-center gap-3'>
+                      <div className='bg-gray-700 rounded w-6 h-6'></div>
+                      <div className='w-12 h-12 bg-gray-700 ro  unded-lg'></div>
+                      <div className='flex-1 space-y-2'>
+                        <div className='bg-gray-700 rounded w-full h-4'></div>
+                        <div className='bg-gray-700 rounded w-2/3 h-3'></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* View All Button */}
+                <div className='bg-gray-700 rounded-full w-full h-10 mx-auto'></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -52,7 +102,7 @@ export function Top100Section() {
             <SwiperSlide key={playlist.encodeId}>
               <Link
                 to={`/playlist/${playlist.encodeId}`}
-                className=' group block bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-4 hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-500 border border-white/10 hover:border-blue-400/50 '
+                className='  block bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-4 hover:from-blue-500/20 hover:to-cyan-500/20 transition-all duration-500 border border-white/10 hover:border-blue-400/50 '
               >
                 <div className='relative mb-4'>
                   {/* Rank Badge */}
