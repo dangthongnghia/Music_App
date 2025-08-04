@@ -80,7 +80,7 @@ export const SearchPage = () => {
             <div className='w-full md:w-70 lg:w-[50%]'>
               <h1 className='text-xl md:text-2xl lg:text-3xl font-medium'>Kết quả hàng đầu</h1>
               <div
-                key={searchResults?.data.top.encodeId}
+                key={searchResults?.data.top.encodeId || ''}
                 className='hover:bg-opacity-80 p-5  bg-gray-700/30 hover:bg-gray-800 mr-10 my-5 rounded-lg cursor-pointer transition-all duration-300 group relative w-full'
               >
                 <Link
@@ -88,7 +88,7 @@ export const SearchPage = () => {
                     searchResults?.data.top.encodeId || '',
                     searchResults?.data.top.alias || '',
                     searchResults?.data.top.objectType || ''
-                  )}
+                  ) || ''}
                 >
                   <div className='mx-5 flex gap-10 items-center w-full'>
                     <img

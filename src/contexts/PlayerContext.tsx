@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useCallback } from 'react'
 
-import { useAudioPlayer } from '../Hook/useProvidePlayer'
+import { useAudioPlayer } from '../hooks/useProvidePlayer'
 import { getSongInfo_MP3, getSongPLay } from '../services/song'
 import { fetchDetailPlaylist } from '../services/spotifyService'
 import { parseTrack } from '../utils/parseTrack'
