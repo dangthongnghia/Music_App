@@ -8,7 +8,7 @@ import { AlbumHotSection } from './AlbumHotSection'
 
 import '../../App.css'
 
-function Home() {
+export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [isLiked, setIsLiked] = useState(false)
 
@@ -198,4 +198,3 @@ function Home() {
   )
 }
 
-export default Home
