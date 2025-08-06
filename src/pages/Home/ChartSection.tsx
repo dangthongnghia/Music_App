@@ -175,7 +175,7 @@ export function ChartSection() {
               <img
                 src={getNewReleaseChartSection()?.items?.[0]?.thumbnailM || '/img/default-music.jpg'}
                 alt={getNewReleaseChartSection()?.items?.[0]?.title || 'Song'}
-                className='w-20 h-20 md:h-24 md:w-24 object-cover rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300'
+                className='w-15 h-15 md:h-24 md:w-24 object-cover rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300'
                 onError={(e) => {
                   const target = e.target as HTMLImageElement
                   target.src = '/img/default-music.jpg'
@@ -199,7 +199,7 @@ export function ChartSection() {
                   to={`/infosong?id=${getNewReleaseChartSection()?.items?.[0]?.encodeId}`}
                   className='block mb-1 hover:underline'
                 >
-                  <h3 className='text-xl md:text-2xl font-bold text-white mb-1'>
+                  <h3 className='text-sm line-clamp-1 md:text-2xl font-bold text-white mb-1'>
                     {getNewReleaseChartSection()?.items?.[0]?.title || 'Untitled Song'}
                   </h3>
                 </Link>
@@ -258,7 +258,7 @@ export function ChartSection() {
                     <img
                       src={song.thumbnail || song.thumbnailM}
                       alt={song.title}
-                      className='w-16 h-16 object-cover rounded-xl shadow-lg'
+                      className='w-12 h-12 object-cover rounded-xl shadow-lg'
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
                         target.src = '/img/default-music.jpg'
@@ -283,7 +283,7 @@ export function ChartSection() {
                   <div className='flex-1 min-w-0'>
                     <div className='flex gap-3 items-center'>
                       <Link to={`/infosong?id=${song.encodeId}`} className='block mb-1 hover:underline'>
-                        <h4 className='font-bold text-white line-clamp-1 group-hover:text-orange-300 transition-colors'>
+                        <h4 className='text-sm line-clamp-1 md:text-2xl font-bold text-white mb-1'>
                           {song.title}
                         </h4>
                       </Link>

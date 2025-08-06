@@ -12,44 +12,44 @@ export default function Footer() {
           <h1 className=' font-medium'>{t('footer.Company')}</h1>
           <ul className='text-gray-500'>
             <li>
-              <Link to='/about'>{t('footer.About')}</Link>
+              <Link to='/about'>About</Link>
             </li>
             <li>
-              <Link to='/jobs'>{t('footer.Jobs')}</Link>
+              <Link to='/jobs'>Jobs</Link>
             </li>
             <li>
-              <Link to='/record'>{t('footer.For The Record')}</Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h1 className='font-medium'>{t('footer.Communities')}</h1>
-          <ul className='text-gray-500'>
-            <li>
-              <Link to='/about'>{t('footer.For Artists')}</Link>
-            </li>
-            <li>
-              <Link to='/jobs'>{t('footer.Developers')}</Link>
-            </li>
-            <li>
-              <Link to='/record'>{t('footer.Advertising')}</Link>
-            </li>
-            <li>
-              <Link to=''>{t('footer.Investors')}</Link>
-            </li>
-            <li>
-              <Link to=''>{t('footer.Vendors')}</Link>
+              <Link to='/record'>For The Record</Link>
             </li>
           </ul>
         </div>
         <div>
-          <h1 className='font-medium'>{t('footer.Useful links')}</h1>
+          <h1 className='font-medium'>Communities</h1>
           <ul className='text-gray-500'>
             <li>
-              <Link to=''>{t('footer.Support')}</Link>
+              <Link to='/about'>For Artists</Link>
             </li>
             <li>
-              <Link to=''> {t('footer.Free Mobile Apps')}</Link>
+              <Link to='/jobs'>Developers</Link>
+            </li>
+            <li>
+              <Link to='/record'>Advertising</Link>
+            </li>
+            <li>
+              <Link to=''>Investors</Link>
+            </li>
+            <li>
+              <Link to=''>Vendors</Link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h1 className='font-medium'>Useful links</h1>
+          <ul className='text-gray-500'>
+            <li>
+              <Link to=''>Support</Link>
+            </li>
+            <li>
+              <Link to=''>Free Mobile Apps</Link>
             </li>
           </ul>
         </div>
@@ -71,22 +71,22 @@ export default function Footer() {
         <div className='justify-between flex w-full items-center flex-col lg:flex-row mt-10'>
           <ul className=' flex flex-wrap gap-3 text-sm text-gray-500'>
             <li>
-              <a>{t('footer.Legal')}</a>
+              <Link to=''>Legal</Link>
             </li>
             <li>
-              <a>{t('footer.Safety & Privacy Center')}</a>
+              <Link to=''>Safety & Privacy Center</Link>
             </li>
             <li>
-              <a>{t('footer.Privacy Policy')}</a>
+              <a>Privacy Policy</a>
             </li>
             <li>
-              <a href=''>{t('footer.Cookies')}</a>
+              <Link to=''>Cookies</Link>
             </li>
             <li>
-              <a>{t('footer.About Ads')}</a>
+              <Link to=''>About Ads</Link>
             </li>
             <li>
-              <a href=''>{t('footer.Accessibility')}</a>
+              <Link to=''>Accessibility</Link>
             </li>
           </ul>
           <p className=' text-center w-[50%]  text-gray-500 text-sm mt-4'>© 2025 MusicApp </p>

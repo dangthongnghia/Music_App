@@ -219,7 +219,7 @@ export default function InfoSong() {
                     onClick={() => handlePlaySongById(songInfo?.encodeId)}
                     className='shadow-xl'
                   >
-                 <Icon name='play' size={24} />
+                    <Icon name='play' size={24} />
                     Phát nhạc
                   </Button>
                 </div>
@@ -273,20 +273,16 @@ export default function InfoSong() {
                   onClick={() => handlePlaySongById(songInfo?.encodeId)}
                   className='px-8'
                 >
-               <Icon name='play' size={20} />
+                  <Icon name='play' size={20} />
                   Phát nhạc
                 </Button>
 
-                <Button
-                  variant={isLiked ? 'default' : 'ghost'}
-                  size='lg'
-                  onClick={() => setIsLiked(!isLiked)}
-                >
+                <Button variant={isLiked ? 'default' : 'ghost'} size='lg' onClick={() => setIsLiked(!isLiked)}>
                   <Icon name={isLiked ? 'heart-filled' : 'heart'} size={20} />
                   {isLiked ? 'Đã thích' : 'Thích'}
                 </Button>
 
-                <Button variant='ghost' size='lg'  >
+                <Button variant='ghost' size='lg'>
                   <Icon name='more' size={20} />
                 </Button>
 

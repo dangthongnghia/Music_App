@@ -6,6 +6,7 @@ import type { DetailplaylistData } from '../../types/spotify'
 import Icon from '../../components/common/Icon_1'
 import { usePlayer } from '../../contexts/PlayerContext'
 import { Button } from '../../components/ui/Button'
+import { formatListen_Like } from '../../utils/formatters'
 interface PremiumStatus {
   [key: string]: boolean
 }
@@ -177,32 +178,23 @@ export default function PlaylistDetail() {
               <span className='flex items-center gap-2'>
                 <Icon name='heart' size={20} />
 
-                {trackplaylist?.data.like}
+                {formatListen_Like(trackplaylist?.data.like ?? 0) || 0}
               </span>
               <span className='mx-2'>•</span>
               <span className='flex items-center gap-2'>
                 <Icon name='play' size={30} className='text-white' />
 
-                {trackplaylist?.data.listen}
+                {formatListen_Like(trackplaylist?.data.listen ?? 0) || 0}
               </span>
             </div>
 
             <div className=' hidden md:flex items-center max-md:justify-center gap-6 pt-6'>
-              <Button
-                variant='secondary'
-                size='lg'
-                onClick={() => handlePlayPlaylist()}
-                className='px-8'
-              >
+              <Button variant='secondary' size='lg' onClick={() => handlePlayPlaylist()} className='px-8'>
                 <Icon name='play' size={20} />
                 Phát nhạc
               </Button>
 
-              <Button
-                variant={isLiked ? 'default' : 'ghost'}
-                size='lg'
-                onClick={() => setIsLiked(!isLiked)}
-              >
+              <Button variant={isLiked ? 'default' : 'ghost'} size='lg' onClick={() => setIsLiked(!isLiked)}>
                 <Icon name={isLiked ? 'heart-filled' : 'heart'} size={20} />
                 {isLiked ? 'Đã thích' : 'Thích'}
               </Button>

@@ -121,7 +121,7 @@ export function Top100Section() {
                 </div>
 
                 <div className='space-y-2'>
-                  <h3 className='font-bold text-white line-clamp-2 group-hover:text-blue-300 transition-colors leading-tight hover:underline'>
+                  <h3 className='text-sm line-clamp-1 md:text-2xl font-bold text-white mb-1'>
                     {playlist.title}
                   </h3>
                   <p className='text-xs text-gray-500'>{Math.floor(Math.random() * 1000) + 100}K lượt nghe</p>

@@ -67,12 +67,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
 
   if (!isOpen) {
     return (
-      <Button
-        variant='ghost'
-        size='sm'
-        onClick={() => setIsOpen(true)}
-        className={className}
-        >
+      <Button variant='ghost' size='sm' onClick={() => setIsOpen(true)} className={className}>
         <Icon name='share' />
         Chia sẻ
       </Button>
@@ -120,11 +115,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
               readOnly
               className='flex-1 bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white'
             />
-            <Button
-              variant='secondary'
-              size='sm'
-              onClick={handleCopyLink}
-            >
+            <Button variant='secondary' size='sm' onClick={handleCopyLink}>
               <Icon name={copied ? 'check' : 'copy'} size={16} />
               {copied ? 'Đã sao chép' : 'Sao chép'}
             </Button>

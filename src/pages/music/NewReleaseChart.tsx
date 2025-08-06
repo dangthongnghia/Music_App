@@ -169,18 +169,13 @@ export function NewReleaseChart() {
 
             {/* Action Buttons */}
             <div className='flex items-center justify-center gap-4 pt-4 '>
-              <Button
-                variant='secondary'
-                size='lg'
-                onClick={handlePlayAll}
-                className='px-8 max-md:text-sm '
-              >
+              <Button variant='secondary' size='lg' onClick={handlePlayAll} className='px-8 max-md:text-sm '>
                 <Icon name='play' size={20} />
                 Phát tất cả
               </Button>
 
               <Button variant='ghost' size='lg' className='max-md:text-sm '>
-                 <Icon name='shuffle' size={20} />
+                <Icon name='shuffle' size={20} />
                 Phát ngẫu nhiên
               </Button>
             </div>
@@ -222,19 +217,13 @@ export function NewReleaseChart() {
                 {/* Rank & Play Button */}
                 <div className='col-span-1 flex items-center justify-center'>
                   {hoveredIndex === index ? (
-                    <Button
-                      variant='ghost'
-                      size='sm'
-                      onClick={() => handlePlaySong(song)}
-                    
-                      
-                      >
+                    <Button variant='ghost' size='sm' onClick={() => handlePlaySong(song)}>
                       <Icon
                         name={isCurrentlyPlaying(song.encodeId) ? 'pause' : 'play'}
                         size={16}
                         className='text-white'
                       />
-                      </Button>
+                    </Button>
                   ) : isCurrentlyPlaying(song.encodeId) ? (
                     <div className='w-4 h-4 flex items-center justify-center'>
                       <div className='flex gap-1'>

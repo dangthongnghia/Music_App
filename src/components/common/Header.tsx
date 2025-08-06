@@ -37,8 +37,8 @@ function Header() {
               Music App
             </Link>
           </div>
-
           <div className='flex items-center gap-4'>
+        <Search />
             <Link to='/login' className='text-sm text-white hover:underline'>
               Login
             </Link>

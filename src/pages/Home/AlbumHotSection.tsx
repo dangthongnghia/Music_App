@@ -142,7 +142,7 @@ export function AlbumHotSection() {
                     <img
                       src={playlist.thumbnail || playlist.thumbnailM}
                       alt={playlist.title}
-                      className='w-20 h-20 object-cover rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500'
+                      className='w-12 h-12 object-cover rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500'
                       onError={(e) => {
                         const target = e.target as HTMLImageElement
                         target.src = '/img/default-playlist.jpg'
@@ -152,7 +152,7 @@ export function AlbumHotSection() {
                   </div>
 
                   <div className='flex-1 min-w-0'>
-                    <h3 className='font-bold text-white text-lg line-clamp-2 group-hover:text-green-300 transition-colors mb-2'>
+                    <h3 className='text-sm line-clamp-1 md:text-2xl font-bold text-white mb-1'>
                       {playlist.title}
                     </h3>
                     <p className='text-sm text-gray-400 line-clamp-1 mb-1'>

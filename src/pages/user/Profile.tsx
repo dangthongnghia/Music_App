@@ -178,9 +178,9 @@ export default function Profile() {
                   size='sm'
                   onClick={() => setIsEditing(true)}
                   className='absolute bottom-4 right-4 rounded-full shadow-xl'
-                  >
+                >
                   <Icon name='settings' size={16} />
-                  </Button>
+                </Button>
               )}
             </div>
 
@@ -195,7 +195,9 @@ export default function Profile() {
                 <p className='text-gray-300 text-lg'>{profileUser.email}</p>
               </div>
 
-              {profileUser.bio && <p className='text-gray-400 text-lg max-w-2xl leading-relaxed'>{profileUser.bio}</p>}
+              {profileUser.bio && (
+                <p className='text-gray-400 text-lg max-w-2xl leading-relaxed italic font-bold'>{profileUser.bio}</p>
+              )}
 
               {/* Stats */}
               <div className='flex items-center justify-center lg:justify-start gap-6 text-sm text-gray-300'>
@@ -227,12 +229,8 @@ export default function Profile() {
               {/* Action Buttons */}
               {isOwnProfile && (
                 <div className='flex items-center justify-center lg:justify-start gap-4 pt-4'>
-                  <Button
-                    variant='outline'
-                    size='lg'
-                    onClick={() => setIsEditing(true)}
-                  >
-                 <Icon name='settings' size={20} />
+                  <Button variant='default' size='lg' onClick={() => setIsEditing(true)}>
+                    <Icon name='settings' size={20} />
                     Chỉnh sửa profile
                   </Button>
 
@@ -240,8 +238,8 @@ export default function Profile() {
                     variant='destructive'
                     size='lg'
                     onClick={handleLogout}
-                    className='text-red-400 hover:text-red-300 hover:bg-red-500/10'
-                    >
+                    className='text-red-300 hover:text-red-100 hover:bg-red-500'
+                  >
                     <Icon name='back' size={20} />
                     Đăng xuất
                   </Button>
@@ -294,12 +292,8 @@ export default function Profile() {
             <div className='text-center py-8'>
               <Icon name='playlist' size={48} className='mx-auto mb-4 text-gray-600' />
               <p className='text-gray-400 mb-3'>Chưa có playlist nào</p>
-              <Button
-                variant='ghost'
-                size='sm'
-                className='text-green-400 hover:text-green-300'
-                >
-               <Icon name='music' size={16} />
+              <Button variant='ghost' size='sm' className='text-green-400 hover:text-green-300'>
+                <Icon name='music' size={16} />
                 Tạo playlist đầu tiên
               </Button>
             </div>
@@ -313,13 +307,9 @@ export default function Profile() {
           <div className='bg-gray-800 rounded-xl p-6 w-full max-w-md border border-gray-700 shadow-2xl'>
             <div className='flex items-center justify-between mb-6'>
               <h2 className='text-xl font-bold text-white'>Chỉnh sửa profile</h2>
-              <Button
-                variant='ghost'
-                size='sm'
-                onClick={() => setIsEditing(false)}
-                >
+              <Button variant='ghost' size='sm' onClick={() => setIsEditing(false)}>
                 <Icon name='close' size={16} />
-                </Button>
+              </Button>
             </div>
 
             <form onSubmit={handleEditSubmit} className='space-y-4'>
@@ -356,12 +346,7 @@ export default function Profile() {
               </div>
 
               <div className='flex gap-3 pt-4'>
-                <Button
-                  type='submit'
-                  variant='destructive'
-                  size='lg'
-                  className='flex-1'
-                >
+                <Button type='submit' variant='destructive' size='lg' className='flex-1'>
                   <Icon name='check' size={16} />
                   Lưu thay đổi
                 </Button>
